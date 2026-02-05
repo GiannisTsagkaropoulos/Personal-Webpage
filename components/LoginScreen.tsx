@@ -1,0 +1,56 @@
+import Image from 'next/image'
+import GiannisXP from '@components/GiannisXP'
+import RestartButton from '@components/RestartButton'
+
+export default function LoginScreen({
+  handleRestart,
+}: {
+  handleRestart: () => void
+}) {
+  return (
+    <div id="log-in" className="flex flex-col h-screen bg-blue-dark">
+      <header className="h-32" />
+      <main className="bg-blue-light h-full flex gap-8 flex-col lg:flex-row items-center justify-center border-y-2 border-b-orange-400">
+        <div className="flex flex-col gap-12 items-end">
+          <GiannisXP />
+          <p className="text-2xl tracking-wide italic">
+            To begin, click my user name
+          </p>
+        </div>
+
+        <div className="h-0 w-[2px] lg:h-[50%] bg-gradient-to-b from-transparent via-gray-200 to-transparent" />
+
+        <button className="group flex gap-4 items-center p-4 rounded-md transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-700 hover:to-transparent hover:cursor-pointer">
+          <Image
+            src="/profile.png"
+            width={70}
+            height={70}
+            alt="Profile"
+            className="rounded-md border-2 border-white group-hover:border-yellow-400"
+          />
+          <div>
+            <p className="text-2xl font-semibold tracking-lighter text-left">
+              Giannis Tsagkaropoulos
+            </p>
+            <p className="text-md text-left font-bold text-blue-800 group-hover:text-yellow-400">
+              Software Engineer
+            </p>
+          </div>
+        </button>
+      </main>
+
+      <footer className="bg-blue-dark flex items-center justify-between h-32 px-8 lg:px-16 ">
+        <div className="flex items-center gap-2 cursor-pointer">
+          <div onClick={handleRestart} className="h-[28px] w-[28px]">
+            <RestartButton />
+          </div>
+          <p className="hover:cursor-auto ">Restart GiannisXP</p>
+        </div>
+        <p>
+          After log on, you can not add or change accounts. <br />
+          Just go to Control Panel and click User Accounts. Gotcha.
+        </p>
+      </footer>
+    </div>
+  )
+}
