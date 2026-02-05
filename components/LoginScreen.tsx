@@ -4,8 +4,10 @@ import RestartButton from '@components/RestartButton'
 
 export default function LoginScreen({
   handleRestart,
+  handleLogin,
 }: {
   handleRestart: () => void
+  handleLogin: () => void
 }) {
   return (
     <div id="log-in" className="flex flex-col h-screen bg-blue-dark">
@@ -20,7 +22,10 @@ export default function LoginScreen({
 
         <div className="h-0 w-[2px] lg:h-[50%] bg-gradient-to-b from-transparent via-gray-200 to-transparent" />
 
-        <button className="group flex gap-4 items-center p-4 rounded-md transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-700 hover:to-transparent hover:cursor-pointer">
+        <button
+          onClick={handleLogin}
+          className="group flex gap-4 items-center p-4 rounded-md transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-700 hover:to-transparent hover:cursor-pointer"
+        >
           <Image
             src="/profile.png"
             width={70}

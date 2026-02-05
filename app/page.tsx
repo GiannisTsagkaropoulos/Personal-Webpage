@@ -3,11 +3,13 @@
 import { useEffect, useState } from 'react'
 import LoadingScreen from '@/components/LoadingScreen'
 
+import WelcomeScreen from '@components/WelcomeScreen'
 import LoginScreen from '@/components/LoginScreen'
 
 const LAYERMAPPING = {
   LOADING_SCREEN: 0,
   LOGIN_SCREEN: 1,
+  WELCOME_SCREEN: 2,
 }
 
 export default function Home() {
@@ -28,8 +30,11 @@ export default function Home() {
       {layer === LAYERMAPPING.LOGIN_SCREEN && (
         <LoginScreen
           handleRestart={() => setLayer(LAYERMAPPING.LOADING_SCREEN)}
+          handleLogin={() => setLayer(LAYERMAPPING.WELCOME_SCREEN)}
         />
       )}
+
+      {layer === LAYERMAPPING.WELCOME_SCREEN && <WelcomeScreen />}
     </div>
   )
 }
