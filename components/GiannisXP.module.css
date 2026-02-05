@@ -1,0 +1,30 @@
+.top {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 16px;
+}
+.top:after {
+  content: '\00a9';
+  font-size: 10px;
+  position: relative;
+  top: -5px;
+  margin-left: 2px;
+}
+.mid {
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 36px;
+}
+.mid span {
+  font-size: 22px;
+  display: inline-block;
+  vertical-align: top;
+  color: #ff6821;
+  margin-top: -8px;
+}
+.bottom {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 30px;
+  margin-left: 5px;
+}
