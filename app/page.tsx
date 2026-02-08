@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react'
 import LoadingScreen from '@/components/LoadingScreen'
 
 import WelcomeScreen from '@components/WelcomeScreen'
-import Desktop from '@components/Desktop'
+import Desktop from '@components/desktop/Desktop'
 import LoginScreen from '@/components/LoginScreen'
 
 const LAYERMAPPING = {
   LOADING_SCREEN: 0,
   LOGIN_SCREEN: 1,
   WELCOME_SCREEN: 2,
-  DESKTOP: 3,
+  DESKTOP: 3
 }
 
 export default function Home() {
