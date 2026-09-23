@@ -67,4 +67,21 @@ export const projectData: Project[] = [
       { author: "@Stefan Kottwitz", age: "1 day ago", text: "Man could I could advertize those in tikz.net.?", likes: 2 }
     ]
   },
+    {
+    id: 'julia-nkua',
+    title: "Julia NKUA Developer",
+    imgUrl: "julia-nkua.png",
+    stack: ["Julia", "JavaScript"],
+    link: "https://www.juliateamnkua.com/",
+    brief: "Guides for Julia Programming Language and interactive notebooks for Arithmetican Analysis, Number Theory and Applied Mathematics.",
+    description: "Julia NKUA is an organization of the National and Kapodistrian University of Athens.\n \n It's goal is to make Julia Programming Language more accessible and useful for the scientific community. We present a brief introduction & guide to Julia language. \n \n \n We examine calculation of pivot patterns emerging from application of GECP in Hadamard matrices, Benchmarks between Julia, Matlab & Python in applications of matrix computations & the Newton-Raphson method, Base conversion programs, Polynomial Interpolation, Natural Cubic Splines, Accuracy of different expressions of equal quantities. All those are showcased using Pluto.jl: an open-source, reactive notebook environment.",
+    updatedAt: "February 2026",
+    views: "5K",
+    likes: 60,
+    uploadedBy: "Giannis Tsagkaropoulos",
+    comments: [
+      { author: "@Fons van der Plas", age: "1 year ago", text: "That's a great use of Pluto.jl! Love it.", likes: 16},
+      { author: "@Stefan Karpinski", age: "1.5 year ago", text: "Did you have any problems while using Julia? I would love to hear your feedback", likes: 2 },
+    ]
+  } 
 ];
