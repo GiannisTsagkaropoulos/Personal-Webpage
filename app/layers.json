@@ -1,0 +1,36 @@
+[
+  {
+    "id": 0,
+    "precedence": 0,
+    "name": "Loading Screen",
+    "automatic-transition-to-next-page": true,
+    "duration": "3 seconds"
+  },
+  {
+    "id": 1,
+    "precedence": 1,
+    "name": "Login Screen",
+    "Description": "This is where the user will log in. It will have the \"OS\" on the left and description on how to log in, the user's photo on the right and user's information. There will be a button to restart and go to the loading screen again, and a button to log in that will take the user to the welcome screen and then automatically to the home page",
+    "automatic-transition-to-next-page": false,
+    "can-transition-to": [
+      { "id": 0, "how": "restart-button" },
+      { "id": 3, "how": "click on user button" }
+    ]
+  },
+  {
+    "id": 2,
+    "precedence": 2,
+    "automatic-transition-to-next-page": true,
+    "name": "Welcome Screen",
+    "description": "It's just going to be a welcome screen that welcomes the user by name and tells them that they are being logged in",
+    "duration": "3 seconds"
+  },
+  {
+    "id": 3,
+    "precedence": 3,
+    "automatic-transition-to-next-page": true,
+    "name": "Actual Home Page",
+    "description": "This is the main content of the app. I want it to be like a desktop from a PC. I also want it to have a menu, the user to be able to open apps from the menu or from double clicking the app icons in the desktop. I want to be able to handle windows and stacked windows when multiple are open",
+    "duration": "until user logs out OR until user restarts app"
+  }
+]
