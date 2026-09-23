@@ -23,11 +23,11 @@ type TaskBarItem = {
 }
 
 const taskBarItems: TaskBarItem[] = [
-  { label: 'Education', icon: 'Information.png', target: 'education' },
+  { label: 'Education', icon: 'information.png', target: 'education' },
   { label: 'Employment', icon: 'profile.png', target: 'employment' },
   { label: 'Projects', icon: 'projects.png', target: 'projects' },
   { label: 'Publications', icon: 'pdf.png', target: 'publications' },
-  { label: 'Favorite Reads', icon: 'Information.png', target: 'favorites' }
+  { label: 'Favorite Reads', icon: 'information.png', target: 'favorites' }
 ]
 
 function DetailValue({ value }: { value?: string | string[] }) {
