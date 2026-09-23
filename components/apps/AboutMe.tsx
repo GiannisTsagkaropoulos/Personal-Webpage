@@ -156,11 +156,11 @@ export default function AboutMe() {
                 key={project.id}
                 className="flex gap-3 border-b border-[#ddd] pb-3"
               >
-                <div className="flex h-30 w-40 shrink-0 items-center justify-center overflow-hidden border border-[#7f9db9] bg-[#ece9d8]">
+                <div className="relative aspect-video w-40 shrink-0 overflow-hidden border border-[#7f9db9] bg-[#ece9d8]">
                   <Image
                     src={`/projects/${project.id}.png`}
-                    width={80}
-                    height={80}
+                    fill
+                    sizes="160px"
                     alt=""
                     className="object-cover"
                   />

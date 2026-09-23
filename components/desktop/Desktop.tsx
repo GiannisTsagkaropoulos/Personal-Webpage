@@ -482,7 +482,7 @@ export default function Desktop({
 
           <div className="flex items-start gap-3">
             <Image
-              src="/info.png"
+              src="/information.png"
               width={20}
               height={20}
               alt="Information"
@@ -539,7 +539,12 @@ export default function Desktop({
             title="Open welcome tip"
             aria-label="Open welcome tip"
           >
-            <Image src="/info.png" width={22} height={22} alt="Information" />
+            <Image
+              src="/information.png"
+              width={22}
+              height={22}
+              alt="Information"
+            />
           </button>
           {new Date().toLocaleTimeString([], {
             hour: '2-digit',
