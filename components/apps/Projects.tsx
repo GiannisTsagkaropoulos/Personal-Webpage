@@ -187,7 +187,8 @@ function Comments({
         />
         <button
           onClick={submitComment}
-          className="rounded-full bg-[#e10600] px-3 py-1 text-[10px] font-bold"
+          disabled={!commentText.trim()}
+          className="rounded-full bg-[#e10600] px-3 py-1 text-[10px] font-bold disabled:cursor-not-allowed disabled:bg-[#555] disabled:text-[#999]"
         >
           Comment
         </button>
