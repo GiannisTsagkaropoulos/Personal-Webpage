@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useState, useRef } from 'react'
 import AppIcon from '@components/desktop/AppIcon'
 import { App } from '@types'
+import AboutMe from '@/components/apps/AboutMe'
 
 // Extended App state to manage position, size, and minimization
 interface WindowState extends App {
@@ -16,7 +17,6 @@ const AVAILABLE_APPS: App[] = [
   {
     id: 'about-me',
     title: 'About Me',
-    content: 'I am giannis',
     icon: 'internet-explorer.png'
   },
   {
@@ -236,7 +236,8 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
               onMouseDown={(e) => startDrag(win.id, e)}
               className="bg-[#0054e3] p-1.5 px-3 flex justify-between items-center cursor-move select-none text-white"
             >
-              <span className="font-bold text-sm truncate pr-2">
+              <span className="flex gap-1 font-bold text-sm truncate pr-2">
+                <Image src={`/${win.icon}`} width={16} height={16} alt="" />
                 {win.title}
               </span>
 
@@ -262,8 +263,10 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
             </div>
 
             {/* Content Area */}
-            <div className="flex-1 p-4 text-black bg-white overflow-auto select-text">
-              {win.content}
+            <div className="flex-1 overflow-auto select-text">
+              {win.id === 'about-me' && <AboutMe />}
+              {win.id === 'resume' && 'resume content goes here...'}
+              {win.id === 'projects' && 'projects content goes here...'}
             </div>
 
             {/* Resize Handle (Bottom-Right Corner) */}
