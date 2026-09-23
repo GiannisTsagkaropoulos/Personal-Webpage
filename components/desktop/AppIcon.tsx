@@ -1,8 +1,9 @@
 import { App } from '@types'
+import Image from 'next/image'
 
 export default function AppIcon({
   app,
-  openApp,
+  openApp
 }: {
   app: App
   openApp: (app: App) => void
@@ -11,9 +12,15 @@ export default function AppIcon({
     <button
       key={app.id}
       onDoubleClick={() => openApp(app)}
-      className="flex flex-col items-center w-24 p-2 rounded hover:bg-white/20 transition-colors"
+      className="flex w-24 flex-col items-center rounded p-2 text-white hover:bg-white/20 transition-colors"
     >
-      <span className="text-4xl mb-1">{app.icon}</span>
+      <Image
+        src={`/${app.icon}`}
+        width={48}
+        height={48}
+        alt=""
+        className="mb-1 object-contain drop-shadow-md"
+      />
       <span className="text-xs text-center drop-shadow-md">{app.title}</span>
     </button>
   )
