@@ -27,7 +27,7 @@ const AVAILABLE_APPS: App[] = [
   {
     id: 'resume',
     title: 'Resume',
-    icon: 'pdf-2.png'
+    icon: 'pdf.png'
   },
   {
     id: 'projects',

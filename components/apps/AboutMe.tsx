@@ -23,11 +23,11 @@ type TaskBarItem = {
 }
 
 const taskBarItems: TaskBarItem[] = [
-  { label: 'Education', icon: 'Information.png', target: 'education' },
+  { label: 'Education', icon: 'information.png', target: 'education' },
   { label: 'Employment', icon: 'profile.png', target: 'employment' },
   { label: 'Projects', icon: 'projects.png', target: 'projects' },
   { label: 'Publications', icon: 'pdf.png', target: 'publications' },
-  { label: 'Favorite Reads', icon: 'Information.png', target: 'favorites' }
+  { label: 'Favorite Reads', icon: 'information.png', target: 'favorites' }
 ]
 
 function DetailValue({ value }: { value?: string | string[] }) {
@@ -156,11 +156,11 @@ export default function AboutMe() {
                 key={project.id}
                 className="flex gap-3 border-b border-[#ddd] pb-3"
               >
-                <div className="relative h-[120px] w-[160px] shrink-0 overflow-hidden border border-[#7f9db9] bg-[#ece9d8]">
+                <div className="flex h-30 w-40 shrink-0 items-center justify-center overflow-hidden border border-[#7f9db9] bg-[#ece9d8]">
                   <Image
                     src={`/projects/${project.id}.png`}
-                    fill
-                    sizes="160px"
+                    width={80}
+                    height={80}
                     alt=""
                     className="object-cover"
                   />
