@@ -37,6 +37,7 @@ const AVAILABLE_APPS: App[] = [
 export default function Desktop({ onLogout }: { onLogout: () => void }) {
   const [openWindows, setOpenWindows] = useState<WindowState[]>([])
   const [activeWindow, setActiveWindow] = useState<string | null>(null)
+  const [showWelcomeTip, setShowWelcomeTip] = useState(true)
 
   // Dragging state tracking
   const dragRef = useRef<{
@@ -281,6 +282,42 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
         )
       })}
 
+      {showWelcomeTip && (
+        <aside className="absolute bottom-14 right-4 z-[60] max-w-[350px] rounded-xl border border-[#333] bg-[#ffffe1] p-3 text-black shadow-xl">
+          <button
+            onClick={() => setShowWelcomeTip(false)}
+            className="absolute right-2 top-2 h-6 w-6 shrink-0 items-center justify-center rounded border border-[#d6d3b8] bg-[#ffffe1] text-lg font-bold leading-none text-[#777] hover:bg-[#f0edcf] hover:text-black"
+            aria-label="Close welcome tip"
+          >
+            x
+          </button>
+
+          <div className="flex items-start gap-3">
+            <Image
+              src="/info.png"
+              width={20}
+              height={20}
+              alt="Information"
+              className="shrink-0"
+            />
+            <h2 className="text-sm font-bold leading-tight">
+              Welcome to Giannis XP
+            </h2>
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <p className="mt-2 text-xs leading-5">
+              My portfolio, built as a Windows XP desktop.
+            </p>
+            <p className="text-xs leading-5">
+              - Double-click an icon to get started
+            </p>
+          </div>
+          <div className="absolute -bottom-3 right-14 h-0 w-0 border-l-[13px] border-r-[13px] border-t-[13px] border-l-transparent border-r-transparent border-t-[#333]" />
+          <div className="absolute -bottom-[10px] right-[58px] h-0 w-0 border-l-[11px] border-r-[11px] border-t-[11px] border-l-transparent border-r-transparent border-t-[#ffffe1]" />
+        </aside>
+      )}
+
       {/* Taskbar */}
       <footer className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-b from-[#245edb] to-[#3f8cf3] flex items-center justify-between z-50">
         <button
@@ -307,7 +344,15 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
           ))}
         </div>
 
-        <div className="bg-[#1291ed] h-full px-4 flex items-center text-xs text-white border-l border-white/30">
+        <div className="flex h-full items-center gap-2 border-l border-white/30 bg-[#1291ed] px-3 text-xs text-white">
+          <button
+            onClick={() => setShowWelcomeTip(true)}
+            className="flex h-7 w-7 items-center justify-center rounded hover:bg-white/20"
+            title="Open welcome tip"
+            aria-label="Open welcome tip"
+          >
+            <Image src="/info.png" width={22} height={22} alt="Information" />
+          </button>
           {new Date().toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit'
