@@ -4,7 +4,7 @@ import RestartButton from '@components/RestartButton'
 
 export default function LoginScreen({
   handleRestart,
-  handleLogin,
+  handleLogin
 }: {
   handleRestart: () => void
   handleLogin: () => void
@@ -53,7 +53,6 @@ export default function LoginScreen({
         </div>
         <p>
           After log on, you can not add or change accounts. <br />
-          Just go to Control Panel and click User Accounts. Gotcha.
         </p>
       </footer>
     </div>
