@@ -3,6 +3,7 @@ import { useState, useRef } from 'react'
 import AppIcon from '@components/desktop/AppIcon'
 import { App } from '@types'
 import AboutMe from '@/components/apps/AboutMe'
+import Resume from '@/components/apps/Resume'
 
 // Extended App state to manage position, size, and minimization
 interface WindowState extends App {
@@ -265,7 +266,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
             {/* Content Area */}
             <div className="flex-1 overflow-auto select-text">
               {win.id === 'about-me' && <AboutMe />}
-              {win.id === 'resume' && 'resume content goes here...'}
+              {win.id === 'resume' && <Resume />}
               {win.id === 'projects' && 'projects content goes here...'}
             </div>
 
