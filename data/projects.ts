@@ -69,7 +69,7 @@ export const projectData: Project[] = [
   },
     {
     id: 'julia-nkua',
-    title: "Julia NKUA Developer",
+    title: "Julia NKUA",
     imgUrl: "julia-nkua.png",
     stack: ["Julia", "JavaScript"],
     link: "https://www.juliateamnkua.com/",

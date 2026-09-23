@@ -254,7 +254,10 @@ export default function Desktop({
   }
 
   return (
-    <div className="h-screen w-full bg-[#3a6ea5] relative p-4 bg-cover select-none overflow-hidden">
+    <div
+      className="relative h-screen w-full overflow-hidden bg-cover bg-center bg-no-repeat p-4 select-none"
+      style={{ backgroundImage: "url('/giannis-xp.png')" }}
+    >
       {/* Desktop Icons */}
       {AVAILABLE_APPS.map((app) => (
         <AppIcon app={app} key={app.id} openApp={openApp} />
