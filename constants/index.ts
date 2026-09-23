@@ -41,3 +41,5 @@ export const MENU_ICONS = [
 ]
 
 export const DOMAIN = 'https://www.giannis.com'
+export const LINKEDIN_PROFILE = "https://www.linkedin.com/in/ioannis-tsagkaropoulos"
+export const GITHUB_PROFILE = "https://github.com/GiannisTsagkaropoulos"

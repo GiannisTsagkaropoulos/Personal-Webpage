@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import { useState, useRef } from 'react'
-import AppIcon from '@components/desktop/AppIcon'
 import { App } from '@types'
+import AppIcon from '@components/desktop/AppIcon'
 import AboutMe from '@/components/apps/AboutMe'
 import Resume from '@/components/apps/Resume'
 import Projects from '@/components/apps/Projects'
+import { LINKEDIN_PROFILE, GITHUB_PROFILE } from '@/constants'
 
 // Extended App state to manage position, size, and minimization
 interface WindowState extends App {
@@ -26,21 +27,26 @@ const AVAILABLE_APPS: App[] = [
   {
     id: 'resume',
     title: 'Resume',
-    content: 'I study...',
-    icon: 'pdf.png'
+    icon: 'pdf-2.png'
   },
   {
     id: 'projects',
     title: 'Projects',
-    content: 'Project 1 etc',
     icon: 'projects.png'
   }
 ]
 
-export default function Desktop({ onLogout }: { onLogout: () => void }) {
+export default function Desktop({
+  onLogout,
+  onShutdown
+}: {
+  onLogout: () => void
+  onShutdown: () => void
+}) {
   const [openWindows, setOpenWindows] = useState<WindowState[]>([])
   const [activeWindow, setActiveWindow] = useState<string | null>(null)
   const [showWelcomeTip, setShowWelcomeTip] = useState(true)
+  const [showStartMenu, setShowStartMenu] = useState(false)
 
   // Dragging state tracking
   const dragRef = useRef<{
@@ -84,7 +90,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
       x: randomX,
       y: 0,
       width,
-      height: window.innerHeight,
+      height: 0.9 * window.innerHeight,
       isMinimized: false,
       isMaximized: false
     }
@@ -351,6 +357,116 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
         )
       })}
 
+      {showStartMenu && (
+        <div className="absolute bottom-10 left-0 z-[70] w-[min(92vw,560px)] overflow-hidden rounded-t-lg border-2 border-[#245edb] bg-white text-black shadow-2xl">
+          <div className="flex items-center gap-3 bg-gradient-to-b from-[#3f8cf3] to-[#245edb] p-3 text-white">
+            <Image
+              src="/profile.png"
+              width={44}
+              height={44}
+              alt="Giannis"
+              className="rounded border-2 border-white object-cover"
+            />
+            <span className="text-xl font-bold">Giannis XP</span>
+          </div>
+          <div className="grid grid-cols-2 divide-x divide-[#aaa]">
+            <div className="bg-white p-2">
+              <button
+                onClick={() => {
+                  openApp(AVAILABLE_APPS[0])
+                  setShowStartMenu(false)
+                }}
+                className="flex w-full items-center gap-3 p-2 text-left hover:bg-[#dbe8f5] hover:cursor-pointer"
+              >
+                <Image
+                  src="/internet-explorer.png"
+                  width={36}
+                  height={36}
+                  alt=""
+                />
+                <span className="font-bold">About Me</span>
+              </button>
+              <button
+                onClick={() => {
+                  openApp(AVAILABLE_APPS[1])
+                  setShowStartMenu(false)
+                }}
+                className="flex w-full items-center gap-3 p-2 text-left hover:bg-[#dbe8f5] hover:cursor-pointer"
+              >
+                <Image src="/pdf.png" width={36} height={36} alt="" />
+                <span className="font-bold">My Resume</span>
+              </button>
+              <button
+                onClick={() => {
+                  openApp(AVAILABLE_APPS[2])
+                  setShowStartMenu(false)
+                }}
+                className="flex w-full items-center gap-3 p-2 text-left hover:bg-[#dbe8f5] hover:cursor-pointer"
+              >
+                <Image src="/projects.png" width={36} height={36} alt="" />
+                <span className="font-bold">My Projects</span>
+              </button>
+            </div>
+            <div className="bg-[#e8f2ff] p-2">
+              <a
+                href={LINKEDIN_PROFILE}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 p-2 font-bold hover:bg-[#cfe4ff]"
+              >
+                <Image
+                  src="/start-menu/linkedin.png"
+                  width={36}
+                  height={36}
+                  alt=""
+                />
+                LinkedIn
+              </a>
+              <a
+                href={GITHUB_PROFILE}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 p-2 font-bold hover:bg-[#cfe4ff]"
+              >
+                <Image
+                  src="/start-menu/github.png"
+                  width={36}
+                  height={36}
+                  alt=""
+                />
+                GitHub
+              </a>
+            </div>
+          </div>
+          <div className="flex justify-end gap-2 bg-gradient-to-b from-[#3f8cf3] to-[#245edb] p-2 text-white">
+            <button
+              onClick={onLogout}
+              className="flex items-center gap-2 rounded px-3 py-1 hover:bg-white/20"
+            >
+              <Image
+                src="/start-menu/logout.png"
+                width={24}
+                height={24}
+                alt=""
+              />
+              Log Off
+            </button>
+            <button
+              onClick={onShutdown}
+              className="flex items-center gap-2 rounded px-3 py-1 hover:bg-white/20"
+            >
+              <Image
+                src="/start-menu/shut-down.png"
+                width={24}
+                height={24}
+                alt=""
+              />
+              Shut Down
+            </button>
+          </div>
+        </div>
+      )}
+
       {showWelcomeTip && (
         <aside className="absolute bottom-14 right-4 z-[60] max-w-[350px] rounded-xl border border-[#333] bg-[#ffffe1] p-3 text-black shadow-xl">
           <button
@@ -390,7 +506,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
       {/* Taskbar */}
       <footer className="absolute bottom-0 left-0 w-full h-10 bg-gradient-to-b from-[#245edb] to-[#3f8cf3] flex items-center justify-between z-50">
         <button
-          onClick={onLogout}
+          onClick={() => setShowStartMenu((showing) => !showing)}
           className="bg-green-600 hover:bg-green-500 italic font-bold px-4 h-full rounded-r-xl border-r-2 border-yellow-400 flex items-center gap-2 text-white"
         >
           <Image src="/xp.png" width={28} height={28} alt="Start" />

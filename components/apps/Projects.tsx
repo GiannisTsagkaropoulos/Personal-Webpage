@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { projectData, type Project } from '../../data/projects'
-import { DOMAIN } from '@/constants'
+import { DOMAIN, LINKEDIN_PROFILE, GITHUB_PROFILE } from '@/constants'
 
 function ProjectImage({
   project,
@@ -100,11 +100,11 @@ function SiteHeader() {
         Search <span className="ml-auto text-white">⌕</span>
       </div>
       <div className="flex gap-3 text-lg">
-        <a target="_blank" rel="noopener noreferrer" href="www.github.com">
+        <a target="_blank" rel="noopener noreferrer" href={GITHUB_PROFILE}>
           <Image src="/social/github.png" width={20} height={20} alt="" />
         </a>
 
-        <a target="_blank" rel="noopener noreferrer" href="www.linkedin.com">
+        <a target="_blank" rel="noopener noreferrer" href={LINKEDIN_PROFILE}>
           <Image src="/social/linkedin.png" width={20} height={20} alt="" />
         </a>
       </div>

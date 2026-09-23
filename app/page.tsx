@@ -44,7 +44,10 @@ export default function Home() {
       {layer === LAYERMAPPING.WELCOME_SCREEN && <WelcomeScreen />}
 
       {layer === LAYERMAPPING.DESKTOP && (
-        <Desktop onLogout={() => setLayer(LAYERMAPPING.LOGIN_SCREEN)} />
+        <Desktop
+          onLogout={() => setLayer(LAYERMAPPING.LOGIN_SCREEN)}
+          onShutdown={() => setLayer(LAYERMAPPING.LOADING_SCREEN)}
+        />
       )}
     </div>
   )
