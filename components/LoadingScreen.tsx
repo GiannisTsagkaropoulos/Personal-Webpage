@@ -15,7 +15,7 @@ export default function LoadingScreen() {
           <div className="flex items-center gap-2 cursor-pointer">
             <p className="hover:cursor-auto">
               {' '}
-              For the best experience <br /> Enter Full Screen (F11){' '}
+              For the best experience <br /> Enter Full Screen{' '}
             </p>
           </div>
           <p className="text-3xl font-mono font-bold">Portfolio</p>
