@@ -13,6 +13,8 @@ interface WindowState extends App {
   width: number
   height: number
   isMinimized: boolean
+  isMaximized: boolean
+  restoreBounds?: { x: number; y: number; width: number; height: number }
 }
 
 const AVAILABLE_APPS: App[] = [
@@ -78,7 +80,8 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
       y: 100 + defaultOffset,
       width: app.id === 'projects' ? 560 : 384,
       height: app.id === 'projects' ? 430 : 250,
-      isMinimized: false
+      isMinimized: false,
+      isMaximized: false
     }
 
     setOpenWindows((prev) => [...prev, newWindow])
@@ -106,6 +109,38 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
     }
   }
 
+  const toggleMaximizeWindow = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation()
+    setActiveWindow(id)
+    setOpenWindows((prev) =>
+      prev.map((windowState) => {
+        if (windowState.id !== id) return windowState
+        if (windowState.isMaximized && windowState.restoreBounds) {
+          return {
+            ...windowState,
+            ...windowState.restoreBounds,
+            isMaximized: false,
+            restoreBounds: undefined
+          }
+        }
+        return {
+          ...windowState,
+          x: 0,
+          y: 0,
+          width: window.innerWidth,
+          height: Math.max(140, window.innerHeight - 40),
+          isMaximized: true,
+          restoreBounds: {
+            x: windowState.x,
+            y: windowState.y,
+            width: windowState.width,
+            height: windowState.height
+          }
+        }
+      })
+    )
+  }
+
   // Toggle Window state from Taskbar
   const handleTaskbarClick = (id: string) => {
     const target = openWindows.find((w) => w.id === id)
@@ -128,7 +163,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
     e.preventDefault()
     setActiveWindow(id)
     const windowObj = openWindows.find((w) => w.id === id)
-    if (!windowObj) return
+    if (!windowObj || windowObj.isMaximized) return
 
     dragRef.current = {
       id,
@@ -170,7 +205,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
     setActiveWindow(id)
 
     const windowObj = openWindows.find((w) => w.id === id)
-    if (!windowObj) return
+    if (!windowObj || windowObj.isMaximized) return
 
     resizeRef.current = {
       id,
@@ -237,7 +272,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
             {/* Title Bar (Draggable) */}
             <div
               onMouseDown={(e) => startDrag(win.id, e)}
-              className="bg-[#0054e3] p-1.5 px-3 flex justify-between items-center cursor-move select-none text-white"
+              className="bg-[#0054e3] p-1.5 flex justify-between items-center cursor-move select-none text-white"
             >
               <span className="flex gap-1 font-bold text-sm truncate pr-2">
                 <Image src={`/${win.icon}`} width={16} height={16} alt="" />
@@ -249,18 +284,44 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
                 {/* Minimize Button */}
                 <button
                   onClick={(e) => minimizeWindow(win.id, e)}
-                  className="bg-[#0054e3] hover:bg-[#27c0ff] text-white w-5 h-5 flex items-center justify-center rounded border border-white/60 text-xs font-bold leading-none"
+                  className="h-5 w-5 cursor-pointer transition duration-150 hover:brightness-130 focus-visible:brightness-150"
                   title="Minimize"
                 >
-                  _
+                  <Image
+                    src="/navigation/minimize.png"
+                    width={22}
+                    height={22}
+                    alt=""
+                  />
+                </button>
+                {/* Maximize / Restore Button */}
+                <button
+                  onClick={(e) => toggleMaximizeWindow(win.id, e)}
+                  className="h-5 w-5 cursor-pointer transition duration-150 hover:brightness-130 focus-visible:brightness-150"
+                  title={win.isMaximized ? 'Restore' : 'Maximize'}
+                  aria-label={
+                    win.isMaximized ? 'Restore window' : 'Maximize window'
+                  }
+                >
+                  <Image
+                    src={`/navigation/${win.isMaximized ? 'restore.png' : 'maximize.png'}`}
+                    width={22}
+                    height={22}
+                    alt=""
+                  />
                 </button>
                 {/* Close Button */}
                 <button
                   onClick={(e) => closeWindow(win.id, e)}
-                  className="bg-red-500 hover:bg-red-400 text-white w-5 h-5 flex items-center justify-center rounded border border-white/60 text-xs font-bold leading-none"
+                  className="h-5 w-5 cursor-pointer transition duration-150 hover:brightness-130 focus-visible:brightness-150"
                   title="Close"
                 >
-                  X
+                  <Image
+                    src="/navigation/exit.png"
+                    width={22}
+                    height={22}
+                    alt=""
+                  />
                 </button>
               </div>
             </div>
@@ -275,7 +336,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
             {/* Resize Handle (Bottom-Right Corner) */}
             <div
               onMouseDown={(e) => startResize(win.id, e)}
-              className="absolute bottom-0 right-0 w-4 h-4 cursor-se-resize flex items-end justify-end p-0.5"
+              className={`absolute bottom-0 right-0 flex h-4 w-4 items-end justify-end p-0.5 ${win.isMaximized ? 'hidden' : 'cursor-se-resize'}`}
             >
               <div className="w-2 h-2 border-r-2 border-b-2 border-gray-400" />
             </div>
