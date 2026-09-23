@@ -39,3 +39,5 @@ export const MENU_ICONS = [
     precedence: 3
   }
 ]
+
+export const DOMAIN = 'https://www.giannis.com'
