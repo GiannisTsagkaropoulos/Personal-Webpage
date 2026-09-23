@@ -2,12 +2,19 @@
 
 import Image from 'next/image'
 import { useRef } from 'react'
-import { educationData } from '../../data/education'
-import { employmentData } from '../../data/employment'
-import { projectData } from '../../data/projects'
-import { referencesData } from '../../data/references'
+import { educationData } from '@/data/education'
+import { employmentData } from '@/data/employment'
+import { projectData } from '@/data/projects'
+import { referencesData } from '@/data/references'
+import { favoriteReads } from '@/data/favoriteReads'
+import { DOMAIN } from '@constants'
 
-type SectionId = 'education' | 'employment' | 'projects' | 'publications'
+type SectionId =
+  | 'education'
+  | 'employment'
+  | 'projects'
+  | 'publications'
+  | 'favorites'
 
 type TaskBarItem = {
   label: string
@@ -19,7 +26,8 @@ const taskBarItems: TaskBarItem[] = [
   { label: 'Education', icon: 'Information.png', target: 'education' },
   { label: 'Employment', icon: 'profile.png', target: 'employment' },
   { label: 'Projects', icon: 'projects.png', target: 'projects' },
-  { label: 'Publications', icon: 'pdf.png', target: 'publications' }
+  { label: 'Publications', icon: 'pdf.png', target: 'publications' },
+  { label: 'Favorite Reads', icon: 'Information.png', target: 'favorites' }
 ]
 
 function DetailValue({ value }: { value?: string | string[] }) {
@@ -61,10 +69,8 @@ export default function AboutMe() {
       <div className="flex shrink-0 items-center gap-2 border-b border-[#aca899] bg-[#ece9d8] px-2 py-1">
         <span className="font-medium text-[#666]">Address</span>
         <div className="flex min-w-0 flex-1 items-center border border-[#7f9db9] bg-white px-1.5 py-1 shadow-inner">
-          <span className="mr-1 font-bold italic text-[#0054e3]">e</span>
-          <span className="truncate text-black">
-            https://www.giannis.com/about-me
-          </span>
+          <Image src="/internet-explorer.png" width={16} height={16} alt="" />
+          <span className="truncate text-black">{DOMAIN}/about-me</span>
         </div>
         <button
           onClick={() => navigateTo('education')}
@@ -78,8 +84,8 @@ export default function AboutMe() {
         ref={pageRef}
         className="min-h-0 flex-1 overflow-y-auto scroll-smooth bg-white p-4"
       >
-        <header className="mb-6 border-b-2 border-[#2d62b3] pb-3">
-          <h1 className="text-xl font-bold text-[#123d91]">About Me</h1>
+        <header className="mb-6 border-b border-[#aca899] pb-3">
+          <h1 className="text-lg font-bold text-[#123d91]">About Me</h1>
           <p className="mt-1 text-sm">
             A personal page about my education, work, projects, and
             publications.
@@ -87,45 +93,48 @@ export default function AboutMe() {
         </header>
 
         <section id="education" className="mb-8 scroll-mt-2">
-          <h2 className="mb-3 border-b border-[#aca899] bg-[#dbe8f5] px-2 py-1 text-sm font-bold text-[#123d91]">
+          <h2 className="mb-3 border-b border-[#aca899] pb-1 text-sm font-bold text-[#123d91]">
             Education
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {educationData.map((item) => (
-              <article
-                key={item.id}
-                className="border-l-4 border-[#2d62b3] pl-3"
-              >
-                <h3 className="font-bold">{item.title}</h3>
-                <p className="text-[#555]">
-                  {item.year} · {item.subtitle}
-                </p>
-                {item.details.map((detail) => (
-                  <p key={detail.key} className="mt-1">
-                    <strong>{detail.name ? `${detail.name}: ` : ''}</strong>
-                    <DetailValue value={detail.value} />
+              <article key={item.id} className="border-b border-[#ddd] pb-3">
+                <div className="flex items-baseline justify-between gap-4">
+                  <p>
+                    <strong>{item.title}</strong>,{' '}
+                    <span>{item.organization}</span>
                   </p>
-                ))}
+                  <span className="shrink-0 text-[#555]">{item.year}</span>
+                </div>
+                <ul className="mt-1 ml-2 list-disc space-y-1 pl-4 text-[#555]">
+                  {item.details.map((detail) => (
+                    <li key={detail.key}>
+                      <DetailValue value={detail.value} />
+                    </li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
         </section>
 
         <section id="employment" className="mb-8 scroll-mt-2">
-          <h2 className="mb-3 border-b border-[#aca899] bg-[#dbe8f5] px-2 py-1 text-sm font-bold text-[#123d91]">
+          <h2 className="mb-3 border-b border-[#aca899] pb-1 text-sm font-bold text-[#123d91]">
             Employment
           </h2>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {employmentData.map((item) => (
-              <article
-                key={item.id}
-                className="border-l-4 border-[#f08a24] pl-3"
-              >
-                <h3 className="font-bold">{item.company}</h3>
-                <p className="text-[#555]">
-                  {item.start} - {item.end} · {item.position}
-                </p>
-                <ul className="mt-1 list-disc space-y-1 pl-4">
+              <article key={item.id} className="border-b border-[#ddd] pb-3">
+                <div className="flex items-baseline justify-between gap-4">
+                  <p>
+                    <strong>{item.position}</strong>,{' '}
+                    <span>{item.company}</span>
+                  </p>
+                  <span className="shrink-0 text-[#555]">
+                    {item.start} - {item.end}
+                  </span>
+                </div>
+                <ul className="mt-1 ml-2 list-disc space-y-1 pl-4 text-[#555]">
                   {item.details.map((detail) => (
                     <li key={detail.key}>
                       <DetailValue value={detail.value} />
@@ -138,7 +147,7 @@ export default function AboutMe() {
         </section>
 
         <section id="projects" className="mb-8 scroll-mt-2">
-          <h2 className="mb-3 border-b border-[#aca899] bg-[#dbe8f5] px-2 py-1 text-sm font-bold text-[#123d91]">
+          <h2 className="mb-3 border-b border-[#aca899] pb-1 text-sm font-bold text-[#123d91]">
             Projects
           </h2>
           <div className="space-y-3">
@@ -147,8 +156,14 @@ export default function AboutMe() {
                 key={project.id}
                 className="flex gap-3 border-b border-[#ddd] pb-3"
               >
-                <div className="flex h-14 w-20 shrink-0 items-center justify-center overflow-hidden border border-[#7f9db9] bg-[#ece9d8]">
-                  <Image src="/projects.png" width={48} height={48} alt="" />
+                <div className="flex h-30 w-40 shrink-0 items-center justify-center overflow-hidden border border-[#7f9db9] bg-[#ece9d8]">
+                  <Image
+                    src={`/projects/${project.id}.png`}
+                    width={80}
+                    height={80}
+                    alt=""
+                    className="object-cover"
+                  />
                 </div>
                 <div>
                   <h3 className="font-bold">{project.title}</h3>
@@ -168,7 +183,7 @@ export default function AboutMe() {
         </section>
 
         <section id="publications" className="scroll-mt-2">
-          <h2 className="mb-3 border-b border-[#aca899] bg-[#dbe8f5] px-2 py-1 text-sm font-bold text-[#123d91]">
+          <h2 className="mb-3 border-b border-[#aca899] pb-1 text-sm font-bold text-[#123d91]">
             Publications
           </h2>
           <div className="space-y-4">
@@ -178,16 +193,20 @@ export default function AboutMe() {
                 {group.elements.map((item) => (
                   <article
                     key={`${group.id}-${item.id}-${item.title}`}
-                    className="mt-2 border-l-4 border-[#6a9d45] pl-3"
+                    className="mt-3 border-b border-[#ddd] pb-3"
                   >
-                    <a
-                      href={item.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="font-bold text-[#0645ad] underline"
-                    >
-                      {item.title}
-                    </a>
+                    {item.url ? (
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-bold text-[#0645ad] underline"
+                      >
+                        {item.title}
+                      </a>
+                    ) : (
+                      <strong>{item.title}</strong>
+                    )}
                     <p>{item.authors}</p>
                     <p className="text-[#555]">
                       {item.at} · {item.date}
@@ -196,6 +215,31 @@ export default function AboutMe() {
                 ))}
               </div>
             ))}
+          </div>
+        </section>
+
+        <section id="favorites" className="mt-8 scroll-mt-2">
+          <h2 className="mb-3 border-b border-[#aca899] pb-1 text-sm font-bold text-[#123d91]">
+            Favorite Reads
+          </h2>
+          <div className="space-y-3">
+            {favoriteReads.map((read) => (
+              <article
+                key={read.id}
+                className="flex gap-2 border-b border-[#ddd] pb-3"
+              >
+                <a
+                  href={read.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-bold text-[#0645ad] underline"
+                >
+                  {read.title}
+                </a>
+                <p className="text-[#555]">, {read.author}</p>
+              </article>
+            ))}
+            <p className="text-[#555]"> and much much more</p>
           </div>
         </section>
       </main>

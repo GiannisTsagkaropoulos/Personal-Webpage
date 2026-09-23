@@ -34,7 +34,7 @@ export const projectData: Project[] = [
     {
     id: 'gsh',
     title: "GSH",
-    imgUrl: "oh-my-gsh.png",
+    imgUrl: "gsh.png",
     stack: ["C"],
     link: "https://github.com/GiannisTsagkaropoulos/GSH",
     brief: "A hobbyist unix-like shell implementation in C.",
@@ -52,7 +52,7 @@ export const projectData: Project[] = [
   {
     id: 'tikz-graphics',
     title: "Tikz Graphics",
-    imgUrl: "tikz.png",
+    imgUrl: "tikz-graphics.png",
     stack: ["LaTeX", "Tikz"],
     link: "https://github.com/GiannisTsagkaropoulos/Tikz-Graphics",
     brief: "Examples of LaTeX Tikz code for graphics and output of the rendered code.",

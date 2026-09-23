@@ -2,9 +2,9 @@ export type Education = {
   id: number
   year: string
   title: string
-  subtitle: string
+  organization: string
   details: {
-    key: number
+    key: string
     name?: string
     value?: string | string[]
   }[]
@@ -14,11 +14,11 @@ export const educationData: Education[] = [
   {
     id: 2,
     year: "2025-2027",
-    title: "ETH Zürich",
-    subtitle: "M.Sc. in Computer Science",
+    title: "M.Sc. in Computer Science",
+    organization: "ETH Zürich",
     details: [
       {
-        key: 0,
+        key: "msc-0",
         name: "Specialization",
         value: [
           "Secure and Reliable Systems",
@@ -29,12 +29,19 @@ export const educationData: Education[] = [
   {
     id: 1,
     year: "Sep 2021 - July 2025",
-    title: "National and Kapodistrian University of Athens",
-    subtitle: "B.Sc. in Mathematics",
+    title: "B.Sc. in Mathematics",
+    organization: "National and Kapodistrian University of Athens",
     details: [
       {
-        key: 0, name: "GPA", value: "9.46/10.0",
+        key: "bsc-0", name: "GPA", value: "9.46/10.0",
       }, 
+       {
+        key: "bsc-1",
+        name: "Specialization",
+        value: [
+          "Applied Mathematics",
+        ]
+      }
     ]
   }
 ];
