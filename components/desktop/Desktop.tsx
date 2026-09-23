@@ -259,7 +259,9 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
           <div
             key={win.id}
             onClick={() => setActiveWindow(win.id)}
-            className={`absolute flex flex-col bg-white border-2 border-[#0054e3] rounded-t-lg shadow-2xl overflow-hidden ${
+            className={`absolute flex flex-col bg-white border-2 rounded-t-lg shadow-2xl overflow-hidden ${
+              isActive ? 'border-[#0054e3]' : 'border-[#7f9db9]'
+            } ${
               isActive ? 'z-50' : 'z-10 opacity-90'
             }`}
             style={{
@@ -272,7 +274,9 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
             {/* Title Bar (Draggable) */}
             <div
               onMouseDown={(e) => startDrag(win.id, e)}
-              className="bg-[#0054e3] p-1.5 flex justify-between items-center cursor-move select-none text-white"
+              className={`p-1.5 flex justify-between items-center cursor-move select-none text-white ${
+                isActive ? 'bg-[#0054e3]' : 'bg-[#7f9db9]'
+              }`}
             >
               <span className="flex gap-1 font-bold text-sm truncate pr-2">
                 <Image src={`/${win.icon}`} width={16} height={16} alt="" />
