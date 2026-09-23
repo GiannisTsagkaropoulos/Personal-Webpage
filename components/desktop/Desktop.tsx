@@ -73,13 +73,18 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
       return
     }
 
-    const defaultOffset = openWindows.length * 30
+    const width = Math.round(window.innerWidth * 0.5)
+    const maximumX = Math.max(0, window.innerWidth - width)
+    const minimumX = Math.min(160, maximumX)
+    const randomX = Math.round(
+      minimumX + Math.random() * Math.max(0, maximumX - minimumX)
+    )
     const newWindow: WindowState = {
       ...app,
-      x: 200 + defaultOffset,
-      y: 100 + defaultOffset,
-      width: app.id === 'projects' ? 560 : 384,
-      height: app.id === 'projects' ? 430 : 250,
+      x: randomX,
+      y: 0,
+      width,
+      height: window.innerHeight,
       isMinimized: false,
       isMaximized: false
     }
@@ -261,9 +266,7 @@ export default function Desktop({ onLogout }: { onLogout: () => void }) {
             onClick={() => setActiveWindow(win.id)}
             className={`absolute flex flex-col bg-white border-2 rounded-t-lg shadow-2xl overflow-hidden ${
               isActive ? 'border-[#0054e3]' : 'border-[#7f9db9]'
-            } ${
-              isActive ? 'z-50' : 'z-10 opacity-90'
-            }`}
+            } ${isActive ? 'z-50' : 'z-10 opacity-90'}`}
             style={{
               top: win.y,
               left: win.x,
