@@ -14,7 +14,10 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'GiannisXP',
-  description: 'Giannis Tsagkaropoulos portofolio'
+  description: 'Giannis Tsagkaropoulos portofolio',
+  icons: {
+    icon: '/profile.png'
+  }
 }
 
 export default function RootLayout({
